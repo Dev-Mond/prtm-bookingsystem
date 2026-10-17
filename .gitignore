@@ -1,0 +1,29 @@
+# Dependencies and generated tooling output
+/vendor/
+/node_modules/
+/.phpunit.cache/
+/.phpunit.result.cache
+/.phpstan-cache/
+/.php-cs-fixer.cache
+/coverage/
+/public/build/
+/public/hot
+/tests/coverage*/
+/public/storage
+/storage/*.key
+/storage/pail/
+/storage/inertia-devtools/
+/database/*.sqlite*
+
+# Local secrets; keep sanitized examples versioned
+.env
+.env.*
+!.env.example
+!.env.*.example
+/auth.json
+*.log
+
+# Local editor and operating-system files
+/.idea/
+.DS_Store
+Thumbs.db

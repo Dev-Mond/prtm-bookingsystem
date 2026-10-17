@@ -1,0 +1,4 @@
+interface:
+  display_name: "Prompt Optimizer"
+  short_description: "Clarify tasks and wait for approval to execute"
+  default_prompt: "Use $prompt-optimizer to make my task clear and concise, then wait for my approval before executing it."
