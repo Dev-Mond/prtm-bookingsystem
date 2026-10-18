@@ -37,9 +37,23 @@ const about = await navigation.json();
 assert.equal(about.component, 'About');
 assert.equal(about.url, '/about');
 
+for (const [path, component] of [
+    ['/dashboard/profile', 'Dashboard/Profile'],
+    ['/dashboard/add-listing', 'Dashboard/AddListing'],
+    ['/dashboard/bookings', 'Dashboard/Bookings'],
+    ['/dashboard/reviews', 'Dashboard/Reviews'],
+]) {
+    const response = await get(path, {
+        'X-Inertia': 'true',
+        'X-Inertia-Version': page.version,
+    });
+    assert.equal(response.status, 200, `${path} must load`);
+    assert.equal((await response.json()).component, component);
+}
+
 const stale = await get('/about', { 'X-Inertia': 'true', 'X-Inertia-Version': 'outdated-assets' });
 assert.equal(stale.status, 409);
 assert.ok(stale.headers.get('x-inertia-location')?.endsWith('/about'));
 assert.equal((await get('/does-not-exist')).status, 404);
 assert.equal((await get('/.env')).status, 404);
-console.log('HTTP checks passed: HTML, built JS/CSS, Inertia navigation, stale assets, 404, and private env path.');
+console.log('HTTP checks passed: HTML, built JS/CSS, Inertia navigation, four dashboard previews, stale assets, 404, and private env path.');

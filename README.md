@@ -93,6 +93,34 @@ Shared hosting must support Laravel's PHP/extensions, URL rewrites, writable
 runtime directories, and a secure `public/` document root layout. Node runs at
 build time only. No deployment has been performed by this initialization.
 
+## Homepage preview
+
+The homepage is an original React/SCSS recreation inspired by the
+[Easybook demo](https://easybook.kwst.net/index.html). Photos are local replacement
+assets from Unsplash, not the paid template. Nunito and Montserrat are bundled
+under their included OFL licenses in `resources/fonts/`.
+
+Destination/name search filters six sample stays; dates and guest counts are
+preview controls, not availability checks. Saved stays last only while the page
+is mounted. Listing/article previews, mobile navigation, and informational dialogs
+do not create bookings or accounts. Newsletter submissions are not stored or sent.
+Run `npm test` for the sample-search tests and `npm run build` for compilation.
+
+## Account and dashboard previews
+
+The header's **Sign In** button opens the login/register dialog. **My account**
+opens `/dashboard/profile`; **Add Your Hotel** opens `/dashboard/add-listing`.
+The dashboard sidebar also links to `/dashboard/bookings` and `/dashboard/reviews`.
+
+All four routes are public UI previews using fictional data, not protected account
+pages. Use dummy form values, never real credentials. Form validation is for UX
+only; no authentication or persistence is implemented. Selected photos are local
+object-URL previews (JPEG/PNG/WebP, up to 5 MB each, six listing photos maximum),
+never uploads. Booking cancellations and review replies change local page state
+only and reset on navigation. Maps, password reset, and social sign-in are not
+connected. Real backend features require server validation and authorization
+before exposing actual account or booking data.
+
 ## Project guidance and memory
 
 `AGENTS.md` holds coding and skill-selection guidance. `plan.md` tracks decisions,

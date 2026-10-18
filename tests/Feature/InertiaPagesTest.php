@@ -7,6 +7,24 @@ use Tests\TestCase;
 
 class InertiaPagesTest extends TestCase
 {
+    public function test_dashboard_previews_are_available_without_authentication(): void
+    {
+        $this->withoutVite();
+
+        foreach (['profile' => 'Profile', 'add-listing' => 'AddListing', 'bookings' => 'Bookings', 'reviews' => 'Reviews'] as $path => $component) {
+            $this->get('/dashboard/'.$path)
+                ->assertOk()
+                ->assertInertia(fn (Assert $page) => $page->component('Dashboard/'.$component));
+        }
+    }
+
+    public function test_preview_pages_do_not_accept_persistent_mutations(): void
+    {
+        foreach (['profile', 'add-listing', 'bookings', 'reviews'] as $path) {
+            $this->post('/dashboard/'.$path)->assertStatus(405);
+        }
+    }
+
     public function test_welcome_page_bootstraps_react_with_server_props(): void
     {
         $this->withoutVite();

@@ -86,13 +86,59 @@ repository below were subsequently approved by the user.
 
 ## Current state / next action
 
+Homepage recreation approved: use the Easybook reference's two-row blue header,
+collage hero, yellow search, destination tiles, hotel cards, promotional sections,
+and footer. Implement original React/SCSS with local replacement photos and open
+fonts. Add frontend-only sample search, guest controls, saved stays, mobile menu,
+and accessible dialogs. No booking/authentication backend, commit, push, or deploy.
+The existing user edit ignoring `wasmer.deployment.yaml` must remain untouched.
+Reference: https://easybook.kwst.net/index.html (the ThemeForest wrapper was not
+accessible; the author's demo and a reference screenshot were inspected).
+Implemented the homepage with local replacement photos and bundled OFL fonts,
+responsive SCSS, destination/name filtering, bounded guest controls, saved stays,
+mobile navigation, and native preview/information dialogs. Dates/guest counts do
+not perform availability checks. Listings are explicitly samples; no accounts,
+reservations, or newsletter storage/transmission were added. Favorites are local
+component state and reset when the homepage unmounts.
+
+Homepage verification: frontend search tests 4/4 pass; Laravel tests 6/6 pass
+(27 assertions); production build passes with Vite-managed fonts; HTTP smoke
+checks and `git diff --check` pass. Focused read-only review found an unnamed
+mobile sign-in button and low-contrast button labels; both were corrected.
+Browser inventory remains empty: rendered/mobile layout, actual keyboard flows,
+and browser console/network inspection are unverified.
+
+Account/dashboard extension approved: recreate the reference login/register modal,
+Edit Profile, Add Listing, Bookings, and Reviews as frontend-only previews. Added
+public `/dashboard/{profile,add-listing,bookings,reviews}` Inertia routes, shared
+dashboard layout/sidebar, native form validation, bounded local image previews,
+status filtering, local cancellation feedback, and preview review replies. Header
+Sign In opens the account modal; My account and Add Your Hotel link to previews.
+No credentials/form data/files are sent, no real sign-in or persistence exists,
+and sample-only status is explicit. No new dependencies; existing user changes
+and homepage implementation preserved. Read-only review found a stale footer
+handler that broke layout rendering, plus focus loss when a reply form closes.
+Replaced the stale handler with an Add Listing link, added focus restoration for
+reply completion and filtered cancellation, and added a real Inertia/React render
+test covering all six public pages. The render test reproduced the ReferenceError
+before the fix and passes afterward. Production SSR remains disabled; the test
+uses existing Vite/React tooling only. Browser verification remains unavailable.
+Final extension checks: `npm run build` passes without warnings; `npm test` passes
+7 tests (including rendering all six pages); Laravel passes 8 tests / 63 assertions;
+expanded HTTP smoke checks pass for all four dashboard routes. PHP syntax, focused
+Pint, Composer metadata validation, and `git diff --check` pass. No commit, push,
+deployment, or database mutation was performed.
+Next action: inspect these previews in a connected browser, or obtain a new
+approved instruction before adding real authentication/booking persistence.
+
 Laravel/Inertia/React initialization is implemented. Backend tests, production
 build, HTTP smoke checks, dependency checks, and PHP formatting pass. Local PHP
 server started on http://127.0.0.1:8000. Final focused read-only review found no
 blocking integration issues. Its caution about repeated key generation was
 addressed by removing the optional `composer setup` shortcut.
-Next product work needs a new user-approved instruction; database, authentication,
-and booking business rules are not implemented. Browser UI verification remains open.
+Database, authentication, and booking business rules remain unimplemented.
+Lesson: local fonts must be imported from `resources/` for Vite asset processing;
+public-root font URLs produce unresolved-build warnings in this configuration.
 
 ## Verified commands and results
 

@@ -7,7 +7,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "check:http": "node tools/check-http.mjs"
+    "check:http": "node tools/check-http.mjs",
+    "test": "node --test tests/Frontend/*.test.mjs"
   },
   "engines": {
     "node": "^20.19.0 || >=22.12.0"
